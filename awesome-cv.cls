@@ -408,7 +408,7 @@
 \newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
 % Use to draw horizontal line with specific thickness
-\def\vhrulefill#1{\leavevmode\leaders\hrule\@height#1\hfill \kern\z@}
+\def\vhrulefill#1{\leavevmode\dimen@=1ex\advance\dimen@-#1\leaders\hrule \@height1ex \@depth-\dimen@\hfill\kern\z@}
 
 % Use to execute conditional statements by checking empty string
 \newcommand*{\ifempty}[3]{\ifthenelse{\isempty{#1}}{#2}{#3}}
