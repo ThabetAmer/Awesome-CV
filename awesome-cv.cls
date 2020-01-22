@@ -451,7 +451,9 @@
   \newlength{\headertextwidth}
   \newlength{\headerphotowidth}
   \ifthenelse{\isundefined{\@photo}}{
-    \setlength{\headertextwidth}{\textwidth}
+    \ifthenelse{\equal{#1}{C}}
+     {\setlength{\headertextwidth}{\textwidth-1cm}}
+     {\setlength{\headertextwidth}{\textwidth}}
     \setlength{\headerphotowidth}{0cm}
   }{%
     \setlength{\headertextwidth}{0.76\textwidth}
