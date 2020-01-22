@@ -52,8 +52,6 @@
 \RequirePackage{enumitem}
 % Needed to handle text alignment
 \RequirePackage{ragged2e}
-% Needed to configure page layout
-\RequirePackage{geometry}
 % Needed to make header & footer effeciently
 \RequirePackage{fancyhdr}
 % Needed to manage colors
@@ -89,6 +87,16 @@
   pdfkeywords={}
 }
 
+% Boolean value to switch 2cols resume
+\providebool{acv2colsLayout}
+
+% Needed to configure page layout
+\ifbool{acv2colsLayout}
+  {\RequirePackage[left=1.4cm, top=1.7cm, right=1.4cm, bottom=2.2cm, footskip=.5cm,twocolumn,columnsep=0.6cm]{geometry}}
+  {\RequirePackage{geometry}}
+
+% Multirow in tables
+\ifbool{acv2colsLayout}{\RequirePackage{multirow}}
 
 %-------------------------------------------------------------------------------
 %                Configuration for directory locations
@@ -103,7 +111,8 @@
 %-------------------------------------------------------------------------------
 %% Page Layout
 % Configure page margins with geometry
-\geometry{left=2.0cm, top=1.5cm, right=2.0cm, bottom=2.0cm, footskip=.5cm}
+\ifbool{acv2colsLayout}{}
+  {\geometry{left=2.0cm, top=1.5cm, right=2.0cm, bottom=2.0cm, footskip=.5cm}}
 
 %% Header & Footer
 % Set offset to each header and footer
@@ -401,6 +410,7 @@
 % Others
 \newcommand{\acvSectionTopSkip}{3mm}
 \newcommand{\acvSectionContentTopSkip}{2.5mm}
+\newcommand{\acvItemContentTopSkip}{-1mm}
 
 
 %-------------------------------------------------------------------------------
@@ -589,35 +599,87 @@
 % Define a paragraph for CV
 \newenvironment{cvparagraph}{%
   \vspace{\acvSectionContentTopSkip}
-  \vspace{-3mm}
+  %\vspace{-3mm}
   \paragraphstyle
+  \begin{center}
 }{%
+  \end{center}
   \par
-  \vspace{2mm}
+  \vspace{\acvSectionContentTopSkip}
 }
 
 % Define an environment for cventry
 \newenvironment{cventries}{%
-  \vspace{\acvSectionContentTopSkip}
+  \vspace{\acvItemContentTopSkip}
   \begin{center}
 }{%
   \end{center}
 }
+
+% Define an entry of cv group information
+% Usage: \cvgroupentry{<title>}{<location>}{<date>}
+\newcommand*{\cvgroupentry}[3]{%
+  \vspace{-1mm}
+  \setlength\tabcolsep{0pt}
+  \setlength{\extrarowheight}{0pt}
+  \ifbool{acv2colsLayout}
+    {\begin{tabular*}{0.5\textwidth - 0.3cm}{@{\extracolsep{\fill}} L{0.5\textwidth - 3.3cm} R{3cm}}}
+    {\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}}
+      \entrytitlestyle{#1} & \entrylocationstyle{#2}\entrylocationstyle{,} \entrydatestyle{#3}
+  \end{tabular*} 
+  \vspace{-3mm}
+}
+
+% Define an entry of cv group position information
+% Usage: \cvposentry{<position>}{<date>}{<description>}
+\newcommand*{\cvposentry}[3]{%
+  \vspace{-2.00mm}
+  \setlength\tabcolsep{0pt}
+  \setlength{\extrarowheight}{0pt}
+  \ifbool{acv2colsLayout}
+    {\begin{tabular*}{0.5\textwidth - 0.3cm}{@{\extracolsep{\fill}} L{0.5\textwidth - 2.9cm} R{2.6cm}}}
+    {\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}}
+    \setlength\leftskip{0.2cm}
+      \subentrypositionstyle{#1} & \subentrydatestyle{#2} \\
+      \multicolumn{2}{L{0.5\textwidth - 0.6cm}}{\subdescriptionstyle{#3}}
+  \end{tabular*}
+}
+
 % Define an entry of cv information
 % Usage: \cventry{<position>}{<title>}{<location>}{<date>}{<description>}
 \newcommand*{\cventry}[5]{%
   \vspace{-2.0mm}
   \setlength\tabcolsep{0pt}
   \setlength{\extrarowheight}{0pt}
-  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
-    \ifempty{#2#3}
-      {\entrypositionstyle{#1} & \entrydatestyle{#4} \\}
-      {\entrytitlestyle{#2} & \entrylocationstyle{#3} \\
-      \entrypositionstyle{#1} & \entrydatestyle{#4} \\}
-    \multicolumn{2}{L{\textwidth}}{\descriptionstyle{#5}}
-  \end{tabular*}%
+  \ifbool{acv2colsLayout}
+  {\begin{tabular*}{0.5\textwidth - 0.3cm}{@{\extracolsep{\fill}} L{0.5\textwidth - 3.3cm} R{3cm}}}
+  {\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}}
+    \ifempty{#5}
+    {\entrytitlestyle{#2} & \entrylocationstyle{#3} \\
+     \entrypositionstyle{#1} & \entrydatestyle{#4} }
+    {\entrytitlestyle{#2} & \entrylocationstyle{#3} \\
+     \entrypositionstyle{#1} & \entrydatestyle{#4} \\
+     \multicolumn{2}{L{0.5\textwidth - 0.3cm}}{\descriptionstyle{#5}}}
+\end{tabular*}%
 }
 
+% Define an entry of cv information
+% Usage: \cventrywide{<position>}{<title>}{<location>}{<date>}{<description>}
+\newcommand*{\cventrywide}[5]{%
+  \vspace{-2.0mm}
+  \setlength\tabcolsep{0pt}
+  \setlength{\extrarowheight}{0pt}
+  \ifbool{acv2colsLayout}
+    {\begin{tabular*}{0.5\textwidth - 0.3cm}{@{\extracolsep{\fill}} L{0.5\textwidth - 2.8cm} R{2.5cm}}}
+    {\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}}
+      \ifempty{#5}
+      {\entrytitlestyle{#2} & \entrylocationstyle{#3} \\
+       \entrypositionstyle{#1} & \entrydatestyle{#4} }
+      {\entrytitlestyle{#2} & \entrylocationstyle{#3} \\
+       \entrypositionstyle{#1} & \entrydatestyle{#4} \\
+       \multicolumn{2}{L{0.5\textwidth - 0.3cm}}{\descriptionstyle{#5}}}
+  \end{tabular*}%
+}
 % Define an environment for cvsubentry
 \newenvironment{cvsubentries}{%
   \begin{center}
@@ -649,7 +711,9 @@
   \begin{center}
     \setlength\tabcolsep{0pt}
     \setlength{\extrarowheight}{0pt}
-    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} C{1.5cm} L{\textwidth - 4.0cm} R{2.5cm}}
+    \ifbool{acv2colsLayout}
+      {\begin{tabular*}{0.5\textwidth - 0.3cm}{@{\extracolsep{\fill}} C{1.2cm} L{0.5\textwidth - 1.5cm}}}
+      {\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} C{1.5cm} L{\textwidth - 4.0cm} R{2.5cm}}}
 }{%
     \end{tabular*}
   \end{center}
@@ -660,14 +724,40 @@
   \honordatestyle{#4} & \honorpositionstyle{#1}, \honortitlestyle{#2} & \honorlocationstyle{#3} \\
 }
 
+% Define an environment for cv descriptions
+\newenvironment{cvdesc}{%
+  \vspace{\acvItemContentTopSkip}
+  \begin{center}
+    \setlength\tabcolsep{0pt}
+    \setlength{\extrarowheight}{0pt}
+    \ifbool{acv2colsLayout}
+      {\begin{tabular*}{0.5\textwidth - 0.3cm}{@{\extracolsep{\fill}} L{0.5\textwidth - 0.3cm}}}
+      {\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}}
+}{%
+      \end{tabular*}
+    \end{center}
+}
+% Define an entry of cv information - horizontal description
+% Usage: \cvdesch{<name>}{<description>}
+\newcommand*{\cvdesch}[2]{%
+  \entrytitlestyle{#1}: \descriptionstyle{#2} \\
+}
+% Define an entry of cv information - vertical description
+% Usage: \cvdescv{<name>}{<description>}
+\newcommand*{\cvdescv}[2]{%
+  \entrytitlestyle{#1}: \\
+  \descriptionstyle{#2}
+}
+
 % Define an environment for cvskill
 \newenvironment{cvskills}{%
   \vspace{\acvSectionContentTopSkip}
   \vspace{-2.0mm}
   \begin{center}
     \setlength\tabcolsep{1ex}
-    \setlength{\extrarowheight}{0pt}
-    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} r L{\textwidth * \real{0.9}}}
+    \ifbool{acv2colsLayout}
+      {\begin{tabular*}{0.5\textwidth - 0.3cm}[t]{@{\extracolsep{\fill}} R{2cm} L{0.5\textwidth - 3cm} }}
+      {\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} r L{\textwidth * \real{0.9}}}}
 }{%
     \end{tabular*}
   \end{center}
