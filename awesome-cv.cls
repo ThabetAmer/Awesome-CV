@@ -461,6 +461,12 @@
           \href{tel:\@mobile}{{\color{awesome}\faPhone}\acvHeaderIconSep\@mobile}%
           \setbool{isstart}{false}%
         }%
+        \ifthenelse{\isundefined{\@mobilesec}}%
+        {}%
+        {%
+          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
+          \href{tel:\@mobilesec}{{\color{awesome}\faPhone}\acvHeaderIconSep\@mobilesec}%
+        }%
       \ifthenelse{\isundefined{\@email}}%
         {}%
         {%
