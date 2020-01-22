@@ -277,6 +277,10 @@
 % Usage: \mobile{<mobile number>}
 \newcommand*{\mobile}[1]{\def\@mobile{#1}}
 
+% Defines writer's second mobile (optional)
+% Usage: \mobilesec{<mobile number>}
+\newcommand*{\mobilesec}[1]{\def\@mobilesec{#1}}
+
 % Defines writer's email (optional)
 % Usage: \email{<email address>}
 \newcommand*{\email}[1]{\def\@email{#1}}
