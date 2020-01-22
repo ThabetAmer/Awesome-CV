@@ -1,0 +1,135 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+% Awesome CV LaTeX Template for CV/Resume
+%
+% This template has been downloaded from:
+% https://github.com/posquit0/Awesome-CV
+%
+% Author:
+% Claud D. Park <posquit0.bj@gmail.com>
+% http://www.posquit0.com
+%
+% Template license:
+% CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
+%
+
+%-------------------------------------------------------------------------------
+% CUSTOMIZATION
+%-------------------------------------------------------------------------------
+% To trigger full-width page or 2-columns page
+\RequirePackage{etoolbox}
+\newbool{acv2colsLayout}
+\setbool{acv2colsLayout}{true}
+
+% To select a custom form, currently: mgmt, tech
+\newcommand{\targetForm}{mgmt}
+
+% resume version
+\newcommand{\cvVersion}{1}
+
+\newcommand{\cvCode}{\targetForm-X\cvVersion}
+
+%-------------------------------------------------------------------------------
+% CONFIGURATIONS
+%-------------------------------------------------------------------------------
+
+% A4 paper size by default, use 'letterpaper' for US letter
+\documentclass[11pt, a4paper,twocolumn]{awesome-cv}
+
+\usepackage[super]{nth}
+
+% Configure page margins with geometry
+% \geometry{left=1.4cm, top=.8cm, right=1.4cm, bottom=1.8cm, footskip=.5cm}
+
+% Specify the location of the included fonts
+\fontdir[fonts/]
+
+% Color for highlights
+% Awesome Colors: awesome-emerald, awesome-skyblue, awesome-red, awesome-pink, awesome-orange
+%                 awesome-nephritis, awesome-concrete, awesome-darknight
+\colorlet{awesome}{awesome-red}
+% Uncomment if you would like to specify your own color
+% \definecolor{awesome}{HTML}{CA63A8}
+% \definecolor{custom}{HTML}{2862A6}
+% \colorlet{awesome}{custom}
+
+% Colors for text
+% Uncomment if you would like to specify your own color
+% \definecolor{darktext}{HTML}{414141}
+% \definecolor{text}{HTML}{333333}
+% \definecolor{graytext}{HTML}{5D5D5D}
+% \definecolor{lighttext}{HTML}{999999}
+
+% Set false if you don't want to highlight section with awesome color
+\setbool{acvSectionColorHighlight}{false}
+
+% If you would like to change the social information separator from a pipe (|) to something else
+\renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
+
+
+%-------------------------------------------------------------------------------
+%	PERSONAL INFORMATION
+%	Comment any of the lines below if they are not required
+%-------------------------------------------------------------------------------
+\ifthenelse{\equal{\targetForm}{tech}}{%
+  \position{Solutions Architect{\enskip\cdotp\enskip}DevOps Engineer}%
+  \github{thabetamer}
+}{%
+  \position{Engineering Technologist{\enskip\cdotp\enskip}IT Project Manager}
+}%
+
+% Available options: circle|rectangle,edge/noedge,left/right
+% \photo[rectangle,edge,right]{./examples/profile}
+\name{Thabet}{Amer}
+%\address{Ramallah, Palestine}
+\mobile{(+1) 773-669-6004}
+\mobilesec{(+972) 569-170-790}
+\email{thabet.amer@gmail.com}
+\linkedin{thabetamer}
+% \twitter{@thabetamer}
+% \homepage{thabetamer.github.io}
+% \stackoverflow{SOid}{SOname}
+% \skype{thabetamer}
+% \reddit{reddit-id}
+% \medium{madium-id}
+% \googlescholar{googlescholar-id}{name-to-display}
+%% \firstname and \lastname will be used
+% \googlescholar{googlescholar-id}{}
+% \extrainfo{extra informations}
+
+%\quote{}
+
+%-------------------------------------------------------------------------------
+\begin{document}
+
+% Print the header with above personal informations
+\twocolumn[\begin{@twocolumnfalse}
+\makecvheader
+\input{data/summary-\targetForm.tex}
+\end{@twocolumnfalse}]
+
+% Print the footer with 3 arguments(<left>, <center>, <right>)
+% Leave any of these blank if they are not needed
+\makecvfooter
+  {\cvCode}
+  {Thabet Amer - Resume}
+  {\today}
+
+%-------------------------------------------------------------------------------
+%	CV/RESUME CONTENT
+%	Each section is imported separately, open each file in turn to modify content
+%-------------------------------------------------------------------------------
+\input{data/experience-\targetForm.tex}
+\input{data/projects.tex}
+
+\ifthenelse{\equal{\targetForm}{tech}}{%
+  \input{data/education.tex}
+  \input{data/skills.tex}
+}{%
+  \input{data/areas.tex}
+  \input{data/education.tex}
+}%
+
+
+%-------------------------------------------------------------------------------
+\end{document}
