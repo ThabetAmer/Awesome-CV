@@ -478,7 +478,7 @@
           \href{tel:\@mobile}{{\color{awesome}\faPhone}\acvHeaderIconSep\@mobile}%
           \setbool{isstart}{false}%
         }%
-        \ifthenelse{\isundefined{\@mobilesec}}%
+      \ifthenelse{\isundefined{\@mobilesec}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
@@ -655,15 +655,15 @@
   \setlength\tabcolsep{0pt}
   \setlength{\extrarowheight}{0pt}
   \ifbool{acv2colsLayout}
-  {\begin{tabular*}{0.5\textwidth - 0.3cm}{@{\extracolsep{\fill}} L{0.5\textwidth - 3.3cm} R{3cm}}}
-  {\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}}
-    \ifempty{#5}
-    {\entrytitlestyle{#2} & \entrylocationstyle{#3} \\
-     \entrypositionstyle{#1} & \entrydatestyle{#4} }
-    {\entrytitlestyle{#2} & \entrylocationstyle{#3} \\
-     \entrypositionstyle{#1} & \entrydatestyle{#4} \\
-     \multicolumn{2}{L{0.5\textwidth - 0.3cm}}{\descriptionstyle{#5}}}
-\end{tabular*}%
+    {\begin{tabular*}{0.5\textwidth - 0.3cm}{@{\extracolsep{\fill}} L{0.5\textwidth - 3.3cm} R{3cm}}}
+    {\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}}
+      \ifempty{#5}
+      {\entrytitlestyle{#2} & \entrylocationstyle{#3} \\
+       \entrypositionstyle{#1} & \entrydatestyle{#4} }
+      {\entrytitlestyle{#2} & \entrylocationstyle{#3} \\
+       \entrypositionstyle{#1} & \entrydatestyle{#4} \\
+       \multicolumn{2}{L{0.5\textwidth - 0.3cm}}{\descriptionstyle{#5}}}
+  \end{tabular*}%
 }
 
 % Define an entry of cv information
@@ -762,7 +762,7 @@
       {\begin{tabular*}{0.5\textwidth - 0.3cm}[t]{@{\extracolsep{\fill}} R{2cm} L{0.5\textwidth - 3cm} }}
       {\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} r L{\textwidth * \real{0.9}}}}
 }{%
-    \end{tabular*}
+      \end{tabular*}
   \end{center}
 }
 % Define a line of cv information(skill)
