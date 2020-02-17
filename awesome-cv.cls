@@ -646,9 +646,10 @@
     {\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}}
     \setlength\leftskip{0.2cm}
       \subentrypositionstyle{#1} & \subentrydatestyle{#2} \\
-      \multicolumn{2}{L{0.5\textwidth - 0.6cm}}{\subdescriptionstyle{#3}}
+      \ifbool{acv2colsLayout}
+      {\multicolumn{2}{L{0.5\textwidth - 0.6cm}}{\subdescriptionstyle{#3}}}
+      {\multicolumn{2}{L{\textwidth - 0.6cm}}{\subdescriptionstyle{#3}}}
   \end{tabular*}
-  \vspace{\acvContentSkip}
 }
 
 % Define an entry of cv information
