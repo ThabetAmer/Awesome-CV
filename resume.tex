@@ -34,7 +34,9 @@
 %-------------------------------------------------------------------------------
 
 % A4 paper size by default, use 'letterpaper' for US letter
-\documentclass[11pt, a4paper,twocolumn]{awesome-cv}
+\ifbool{acv2colsLayout}
+  {\documentclass[11pt, a4paper,twocolumn]{awesome-cv}}
+  {\documentclass[12pt, a4paper]{awesome-cv}}
 
 \usepackage[super]{nth}
 
@@ -103,11 +105,13 @@
 \begin{document}
 
 % Print the header with above personal informations
-\twocolumn[\begin{@twocolumnfalse}
-\makecvheader
-\input{data/summary-\targetForm.tex}
-\end{@twocolumnfalse}]
-
+\ifbool{acv2colsLayout}
+  {\twocolumn[\begin{@twocolumnfalse}
+  \makecvheader
+  \input{data/summary-\targetForm.tex}
+  \end{@twocolumnfalse}]}
+  {\makecvheader
+  \input{data/summary-\targetForm.tex}}
 % Print the footer with 3 arguments(<left>, <center>, <right>)
 % Leave any of these blank if they are not needed
 \makecvfooter

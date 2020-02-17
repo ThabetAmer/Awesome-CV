@@ -662,7 +662,9 @@
        \entrypositionstyle{#1} & \entrydatestyle{#4} }
       {\entrytitlestyle{#2} & \entrylocationstyle{#3} \\
        \entrypositionstyle{#1} & \entrydatestyle{#4} \\
-       \multicolumn{2}{L{0.5\textwidth - 0.3cm}}{\descriptionstyle{#5}}}
+       \ifbool{acv2colsLayout}
+        {\multicolumn{2}{L{0.5\textwidth - 0.3cm}}{\descriptionstyle{#5}}}
+        {\multicolumn{2}{L{\textwidth - 0.3cm}}{\descriptionstyle{#5}}}}
   \end{tabular*}%
 }
 
@@ -680,7 +682,9 @@
        \entrypositionstyle{#1} & \entrydatestyle{#4} }
       {\entrytitlestyle{#2} & \entrylocationstyle{#3} \\
        \entrypositionstyle{#1} & \entrydatestyle{#4} \\
-       \multicolumn{2}{L{0.5\textwidth - 0.3cm}}{\descriptionstyle{#5}}}
+       \ifbool{acv2colsLayout}
+        {\multicolumn{2}{L{0.5\textwidth - 0.3cm}}{\descriptionstyle{#5}}}
+        {\multicolumn{2}{L{\textwidth - 0.3cm}}{\descriptionstyle{#5}}}}
   \end{tabular*}%
 }
 % Define an environment for cvsubentry
@@ -735,7 +739,7 @@
     \setlength{\extrarowheight}{0pt}
     \ifbool{acv2colsLayout}
       {\begin{tabular*}{0.5\textwidth - 0.3cm}{@{\extracolsep{\fill}} L{0.5\textwidth - 0.3cm}}}
-      {\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}}
+      {\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 0.3cm}}}
 }{%
       \end{tabular*}
     \end{center}
