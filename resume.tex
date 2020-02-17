@@ -35,7 +35,7 @@
 
 % A4 paper size by default, use 'letterpaper' for US letter
 \ifbool{acv2colsLayout}
-  {\documentclass[11pt, a4paper,twocolumn]{awesome-cv}}
+  {\documentclass[11pt, a4paper, twocolumn]{awesome-cv}}
   {\documentclass[12pt, a4paper]{awesome-cv}}
 
 \usepackage[super]{nth}
@@ -124,6 +124,7 @@
 %	Each section is imported separately, open each file in turn to modify content
 %-------------------------------------------------------------------------------
 \input{data/experience-\targetForm.tex}
+\ifbool{acv2colsLayout}{}{\newpage}
 \input{data/projects.tex}
 
 \ifthenelse{\equal{\targetForm}{tech}}{%

@@ -409,10 +409,12 @@
 \newcommand{\acvHeaderAfterQuoteSkip}{5mm}
 
 % Others
-\newcommand{\acvSectionTopSkip}{5mm}
-\newcommand{\acvSectionContentTopSkip}{5mm}
-\newcommand{\acvItemContentTopSkip}{-1mm}
-
+\newcommand{\acvTopSkip}{3mm}
+\newcommand{\acvSectionSkip}{2mm}
+\newcommand{\acvContentSkip}{-3mm}
+\ifbool{acv2colsLayout}
+  {\newcommand{\acvContentColsSkip}{-3mm}}
+  {\newcommand{\acvContentColsSkip}{0mm}}
 
 %-------------------------------------------------------------------------------
 %                Commands for utilities
@@ -584,45 +586,45 @@
 % Define a section for CV
 % Usage: \cvsection{<section-title>}
 \newcommand{\cvsection}[1]{%
-  \vspace{\acvSectionTopSkip}
+  \vspace{\acvSectionSkip}
   \sectionstyle{#1}
   \phantomsection
   \color{gray}\vhrulefill{0.9pt}
+  %\vspace{\acvSectionSkip}
 }
 
 % Define a subsection for CV
 % Usage: \cvsubsection{<subsection-title>}
 \newcommand{\cvsubsection}[1]{%
-  \vspace{\acvSectionContentTopSkip}
-  \vspace{-3mm}
+  \vspace{\acvSectionSkip}
   \subsectionstyle{#1}
   \phantomsection
 }
 
 % Define a paragraph for CV
 \newenvironment{cvparagraph}{%
-  \vspace{\acvSectionContentTopSkip}
-  %\vspace{-3mm}
+  \vspace{\acvTopSkip}
   \paragraphstyle
   \begin{center}
 }{%
   \end{center}
   \par
-  \vspace{\acvSectionContentTopSkip}
+  \vspace{\acvTopSkip}
 }
 
 % Define an environment for cventry
 \newenvironment{cventries}{%
-  \vspace{\acvItemContentTopSkip}
+  \vspace{\acvContentColsSkip}
   \begin{center}
 }{%
   \end{center}
+  \vspace{\acvContentColsSkip}
 }
 
 % Define an entry of cv group information
 % Usage: \cvgroupentry{<title>}{<location>}{<date>}
 \newcommand*{\cvgroupentry}[3]{%
-  \vspace{-1mm}
+  \vspace{\acvContentSkip}
   \setlength\tabcolsep{0pt}
   \setlength{\extrarowheight}{0pt}
   \ifbool{acv2colsLayout}
@@ -636,7 +638,7 @@
 % Define an entry of cv group position information
 % Usage: \cvposentry{<position>}{<date>}{<description>}
 \newcommand*{\cvposentry}[3]{%
-  \vspace{-2.00mm}
+  \vspace{\acvContentSkip}
   \setlength\tabcolsep{0pt}
   \setlength{\extrarowheight}{0pt}
   \ifbool{acv2colsLayout}
@@ -646,12 +648,13 @@
       \subentrypositionstyle{#1} & \subentrydatestyle{#2} \\
       \multicolumn{2}{L{0.5\textwidth - 0.6cm}}{\subdescriptionstyle{#3}}
   \end{tabular*}
+  \vspace{\acvContentSkip}
 }
 
 % Define an entry of cv information
 % Usage: \cventry{<position>}{<title>}{<location>}{<date>}{<description>}
 \newcommand*{\cventry}[5]{%
-  \vspace{-2.0mm}
+  \vspace{\acvContentSkip}
   \setlength\tabcolsep{0pt}
   \setlength{\extrarowheight}{0pt}
   \ifbool{acv2colsLayout}
@@ -671,7 +674,7 @@
 % Define an entry of cv information
 % Usage: \cventrywide{<position>}{<title>}{<location>}{<date>}{<description>}
 \newcommand*{\cventrywide}[5]{%
-  \vspace{-2.0mm}
+  %\vspace{\acvContentSkip}
   \setlength\tabcolsep{0pt}
   \setlength{\extrarowheight}{0pt}
   \ifbool{acv2colsLayout}
@@ -713,8 +716,7 @@
 
 % Define an environment for cvhonor
 \newenvironment{cvhonors}{%
-  \vspace{\acvSectionContentTopSkip}
-  \vspace{-2mm}
+  \vspace{\acvContentSkip}
   \begin{center}
     \setlength\tabcolsep{0pt}
     \setlength{\extrarowheight}{0pt}
@@ -733,10 +735,10 @@
 
 % Define an environment for cv descriptions
 \newenvironment{cvdesc}{%
-  \vspace{\acvItemContentTopSkip}
+  \vspace{\acvContentSkip}
   \begin{center}
     \setlength\tabcolsep{0pt}
-    \setlength{\extrarowheight}{0pt}
+    \setlength{\extrarowheight}{2pt}
     \ifbool{acv2colsLayout}
       {\begin{tabular*}{0.5\textwidth - 0.3cm}{@{\extracolsep{\fill}} L{0.5\textwidth - 0.3cm}}}
       {\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 0.3cm}}}
@@ -758,8 +760,7 @@
 
 % Define an environment for cvskill
 \newenvironment{cvskills}{%
-  \vspace{\acvSectionContentTopSkip}
-  \vspace{-2.0mm}
+  \vspace{\acvContentSkip}
   \begin{center}
     \setlength\tabcolsep{1ex}
     \ifbool{acv2colsLayout}
@@ -777,15 +778,15 @@
 
 % Define an environment for cvitems(for cventry)
 \newenvironment{cvitems}{%
-  \vspace{-4.0mm}
+  \vspace{\acvContentSkip}
   \begin{justify}
-  \begin{itemize}[leftmargin=2ex, nosep, noitemsep]
-    \setlength{\parskip}{0pt}
+  \begin{itemize}[leftmargin=2ex, nosep, itemsep=1mm]
+    \setlength{\parskip}{1pt}
     \renewcommand{\labelitemi}{\bullet}
 }{%
   \end{itemize}
   \end{justify}
-  \vspace{-4.0mm}
+  \vspace{\acvContentSkip}
 }
 
 
